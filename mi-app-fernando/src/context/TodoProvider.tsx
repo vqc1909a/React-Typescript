@@ -4,7 +4,7 @@ import { useReducer } from 'react';
 import { todoReducer } from "./todoReducer";
 
 interface TodoProviderProps {
-	(props: {children: React.ReactNode}): JSX.Element;
+	children: React.ReactNode;
 }
 
 const INITIAL_STATE: TodoState = {
@@ -25,20 +25,20 @@ const INITIAL_STATE: TodoState = {
 	pending: 2,
 };
 
-export const TodoProvider: TodoProviderProps = ({children}) => {
+export const TodoProvider = ({children}: TodoProviderProps) => {
 	const [todoState, dispatch] = useReducer(todoReducer, INITIAL_STATE);
 
 	const toggleTodo = (id: string) => {
-		dispatch({ type: "toggle", payload: { id } })
-	}
+		dispatch({type: "toggle", payload: {id}});
+	};
 
 	const deleteTodo = (id: string) => {
-		dispatch({ type: "delete", payload: { id } })
-	}
+		dispatch({type: "delete", payload: {id}});
+	};
 
 	const addTodo = (todo: Todo) => {
-		dispatch({ type: "add", payload: todo })
-	} 
+		dispatch({type: "add", payload: todo});
+	};
 
 	return (
 		<TodoContext.Provider value={{todoState, toggleTodo, deleteTodo, addTodo}}>
